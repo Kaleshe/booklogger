@@ -1,0 +1,49 @@
+{% load static %}
+{% static "images" as baseUrl %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <meta charset="utf-8">
+    <title>Booklogger</title>
+  </head>
+  <body>
+    <header>
+      <h1 id="logo">Booklogger</h1>
+      <nav>
+        <ul>
+          <li><a href="#newest">newest</a></li>
+          <li><a href="#most-popular">most popular</a></li>
+          <li><a href="#categories">categories</a></li>
+        </ul>
+
+        <div class="socials">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </nav>
+    </header>
+
+    <div class="container">
+      <h2>Most popular books:</h2>
+      <section id="most-popular" class="bookshelf">
+
+        {% for book in books %}
+        <div class="book">
+          <img src="{{book.bookImg.url}}" alt="{{book.bookTitle}}">
+          <p class="title">{{book.bookTitle}}</p>
+          <p class="author">{{book.authorFName}} {{book.authorLName}} </p>
+          <p class="price">£{{book.bookPrice}}</p>
+          <button type="button" name="button">Add to Basket</button>
+        </div>
+        {% endfor %}
+
+
+        
+      </section>
+
+    </div>
+  </body>
+</html>
