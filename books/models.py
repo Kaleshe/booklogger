@@ -8,6 +8,9 @@ class Author(models.Model):
    autMidN = models.CharField(max_length=64)
    autLastN = models.CharField(max_length=64)
 
+   def __str__(self):
+      return self.autFirstN + ' ' + self.autLastN
+
 class Book(models.Model):
    bookAuthor = models.ForeignKey(Author, on_delete=models.CASCADE)
 #  bookCat = models.ForeignKey(Category, related_name="books", on_delete=models.CASCADE)
@@ -28,3 +31,6 @@ class Book(models.Model):
 
    bookSale = models.BooleanField(default=False)
    bookFreeShip = models.BooleanField(default=False)
+
+   def __str__(self):
+      return self.bookTitle
