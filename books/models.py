@@ -9,7 +9,7 @@ class Author(models.Model):
    autLastN = models.CharField(max_length=64)
 
    def __str__(self):
-      return self.autFirstN + ' ' + self.autLastN
+      return self.autLastN
 
 class Book(models.Model):
    bookAuthor = models.ForeignKey(Author, on_delete=models.CASCADE)
