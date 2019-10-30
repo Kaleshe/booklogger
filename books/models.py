@@ -1,26 +1,30 @@
 from django.db import models
+from djmoney.models.fields import MoneyField
+from mptt.managers import TreeManager
+from mptt.models import MPTTModel
 
-# Create your models here.
-
+class Author(models.Model):
+   autFirstN = models.CharField(max_length=64)
+   autMidN = models.CharField(max_length=64)
+   autLastN = models.CharField(max_length=64)
 
 class Book(models.Model):
-   bookAuthor = models.CharField(max_length=128, default='a')
-   bookCat = models.CharField(max_length=64, default='a')
-   bookPblshr = models.CharField(max_length=128, default='a')
+   bookAuthor = models.ForeignKey(Author, on_delete=models.CASCADE)
+#  bookCat = models.ForeignKey(Category, related_name="books", on_delete=models.CASCADE)
+#  bookPblshr = models.ForeignKey(Publisher, on_delete=models.CASCADE)
 
-   bookTitle = models.CharField(max_length=128, default='a')
-   bookDsc = models.TextField(max_length=1000, default='a')
+   bookTitle = models.CharField(max_length=128)
+   bookDsc = models.TextField(max_length=1000)
    bookImg = models.ImageField(upload_to='pics')
-   bookPrice = models.DecimalField(max_digits=8 ,decimal_places=2, default=0.00)
+   bookPrice = MoneyField(max_digits=10, decimal_places=2, null=True, default_currency='EUR')
    bookISBN = models.BigIntegerField(default=11111)
-   bookPages = models.PositiveIntegerField(default=1)
+   bookPages = models.PositiveIntegerField(default=10)
 
    LANGS = [
     ('ENG', 'English'),
     ('GER', 'German'),
     ('ESP', 'Spanish')]
-   bookLang = models.CharField(max_length=3, choices=LANGS, default='EN')
-
+   bookLang = models.CharField(max_length=3, choices=LANGS, default='ENG')
 
    bookSale = models.BooleanField(default=False)
    bookFreeShip = models.BooleanField(default=False)
